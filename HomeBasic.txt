@@ -12,15 +12,14 @@ public class HomeScreen extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         Scene sc=new Scene(addBPane(addVBox(),addTop()));
         Stage s=new Stage();
         s.setScene(sc);
+        s.setTitle("Homepage")
         s.show();
     }
 
     private static VBox addVBox() {
-        //Text t1=new Text("Vrinda Mittal");
         Button b1=new Button("Time Table");
         Button b2=new Button("Search Courses");
         Button b3=new Button("Room Availability");
@@ -28,7 +27,6 @@ public class HomeScreen extends Application {
         Button b5=new Button("My Profile");
 
         VBox v=new VBox();
-        //t1.maxWidth(Double.MAX_VALUE);
         b1.setMaxWidth(Double.MAX_VALUE);
         b2.setMaxWidth(Double.MAX_VALUE);
         b3.setMaxWidth(Double.MAX_VALUE);
@@ -42,8 +40,7 @@ public class HomeScreen extends Application {
     private static BorderPane addTop(){
         BorderPane bp=new BorderPane();
         Button lo=new Button("Log Out");
-        //Text txt=new Text("Welcome to ClassRoom Booking System :)");
-        Text txt=new Text("Username");
+        Text txt=new Text("Mocchi");
         txt.maxWidth(Double.MAX_VALUE);
         bp.setLeft(txt);
         bp.setRight(lo);
@@ -53,13 +50,10 @@ public class HomeScreen extends Application {
     }
     private static BorderPane addBPane(VBox v,BorderPane b) {
         BorderPane bp=new BorderPane();
-        //Button lo=new Button("Log Out");
         Text txt=new Text("Welcome to ClassRoom Booking System :)");
         bp.setLeft(v);
         bp.setTop(b);
-        //bp.setRight(lo);
         bp.setCenter(txt);
-        //bp.setAlignment(lo, Pos.TOP_LEFT);
         bp.setAlignment(txt,Pos.CENTER);
         bp.setPadding(new Insets(10,10,10,10));
         return(bp);
