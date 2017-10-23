@@ -22,7 +22,7 @@ public class HomeScreen extends Application {
     public static Scene getScene(int t,Stage s,Scene back){
         signin=back;
         window=s;
-        home=new Scene(addBPane(addVBox(t,s),addTop(),addMain()),500,300);
+        home=new Scene(addBPane(addVBox(t,s),addTop(),addMain()),600,300);
         return home;
     }
     private static VBox addVBox(int t,Stage s) {
@@ -41,9 +41,24 @@ public class HomeScreen extends Application {
                 v.setPadding(new Insets(0, 20, 0, 0));
                 v.setAlignment(Pos.CENTER);
             }
+
+            panel[0].setOnAction(e ->{
+                BorderPane bp=ViewTimetable.compiler();
+                Scene sc=new Scene(addBPane(addVBox(0,s),addTop(),bp),800,250);
+                s.setScene(sc);
+            });
+
+            panel[1].setOnAction(e ->{
+                BorderPane bp=SearchCourses.compiler();
+                Scene sc=new Scene(addBPane(addVBox(0,s),addTop(),bp),800,250);
+                s.setScene(sc);
+            });
+
+
             panel[2].setOnAction(e ->{
                 BorderPane bp=RoomAvailability.compiler();
-                s.setScene(new Scene(addBPane(addVBox(0,s),addTop(),bp),500,300));
+                Scene sc=new Scene(addBPane(addVBox(0,s),addTop(),bp),500,300);
+                s.setScene(sc);
             });
             panel[3].setOnAction(e ->{
                 BorderPane bp=MyRequests.compiler();
@@ -65,6 +80,23 @@ public class HomeScreen extends Application {
                 v.setPadding(new Insets(0, 20, 0, 0));
                 v.setAlignment(Pos.CENTER);
             }
+            panel[0].setOnAction(e ->{
+                BorderPane bp=ViewTimetable.compiler();
+                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),800,250);
+                s.setScene(sc);
+            });
+
+            panel[1].setOnAction(e ->{
+                BorderPane bp=RoomAvailability.compiler();
+                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),500,300);
+                s.setScene(sc);
+            });
+
+            panel[2].setOnAction(e ->{
+                BorderPane bp=Profile.addCenter2();
+                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),500,300);
+                s.setScene(sc);
+            });
 
         }
 
@@ -76,13 +108,44 @@ public class HomeScreen extends Application {
             panel[3]=new Button("Faculty");//edit  or remove faculty
             panel[4]=new Button("Room Availability");
             panel[5]=new Button("Room Requests");
-            panel[6]=new Button("MyProfile");
-            for(int i=0;i<7;i++){
+            //panel[6]=new Button("Profile");
+            for(int i=0;i<6;i++){
                 panel[i].setMaxWidth(Double.MAX_VALUE);
                 v.getChildren().add(panel[i]);
                 v.setPadding(new Insets(0, 20, 0, 0));
                 v.setAlignment(Pos.CENTER);
             }
+
+            panel[0].setOnAction(e ->{
+                BorderPane bp=ViewTimetable.compiler2();
+                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),800,250);
+                s.setScene(sc);
+            });
+
+            panel[1].setOnAction(e ->{
+                BorderPane bp=AdminCourses.compiler();
+                s.setScene(new Scene(addBPane(addVBox(2,s),addTop(),bp),500,500));
+            });
+            panel[2].setOnAction(e ->{
+                BorderPane bp=AddStudent.compiler();
+                s.setScene(new Scene(addBPane(addVBox(2,s),addTop(),bp),500,500));
+            });
+
+            panel[3].setOnAction(e ->{
+                BorderPane bp=AddFaculty.compiler();
+                s.setScene(new Scene(addBPane(addVBox(2,s),addTop(),bp),600,500));
+            });
+            panel[4].setOnAction(e ->{
+                BorderPane bp=RoomAvailability.compiler();
+                Scene sc=new Scene(addBPane(addVBox(2,s),addTop(),bp),500,300);
+                s.setScene(sc);
+            });
+
+            panel[5].setOnAction(e ->{
+                BorderPane bp=MyRequests.compiler2();
+                Scene sc=new Scene(addBPane(addVBox(2,s),addTop(),bp),500,300);
+                s.setScene(sc);
+            });
 
         }
 
