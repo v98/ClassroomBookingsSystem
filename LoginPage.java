@@ -96,7 +96,4 @@ public class LoginPage extends Application {
         window.show();
     }
 
-    public static void main(String ar[]) {
-        launch(ar);
-    }
 }
