@@ -3,6 +3,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -51,6 +52,38 @@ public class MyRequests{
         Button cancel=new Button("Cancel Request");
 
         bp.getChildren().add(cancel);
+        bp.setAlignment(Pos.CENTER);
+        bp1.setCenter(bp);
+        bp1.setAlignment(bp, Pos.CENTER);
+        bp1.setPadding(new Insets(10,10,10,10));
+        cancel.setAlignment(Pos.CENTER);
+
+        return(bp1);
+    }
+    public static BorderPane compiler2() {
+        TableView mid=addMid();
+        Text tp = new Text("Pending Requests");
+        tp.setStyle("-fx-font-weight:bold;-fx-font-size:150%");
+        //BorderPane bp=new BorderPane();
+        VBox bp=new VBox(10);
+        bp.getChildren().add(tp);
+
+//        bp.setLeft(left);
+//        bp.setAlignment(left, Pos.CENTER);
+        bp.getChildren().add(mid);
+        //mid.setAlignment(Pos.CENTER);
+        bp.setPadding(new Insets(10,10,10,10));
+        BorderPane bp1=new BorderPane();
+//        bp1.setTop(top);
+//        bp1.setAlignment(top, Pos.CENTER);
+
+
+        Button cancel=new Button("Reject Request");
+        Button accept=new Button("Accept Request");
+        HBox h=new HBox(30);
+        h.getChildren().addAll(accept,cancel);
+
+        bp.getChildren().add(h);
         bp.setAlignment(Pos.CENTER);
         bp1.setCenter(bp);
         bp1.setAlignment(bp, Pos.CENTER);
