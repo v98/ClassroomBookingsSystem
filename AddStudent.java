@@ -18,7 +18,7 @@ public class AddStudent extends Application{
 		Scene sc=new Scene(compiler(addTop(),addGPane(),addMid()));
 		Stage s=new Stage();
 		s.setScene(sc);
-		s.setTitle("Add Student");
+		s.setTitle("Edit Student");
 		s.show();
 	}
 	private static BorderPane addTop(){
@@ -37,8 +37,8 @@ public class AddStudent extends Application{
         Button b2=new Button("Courses");
         Button b3=new Button("Room Availability");
         Button b4=new Button("View Pending Requests");
-        Button b5=new Button("Add Student");
-        Button b6=new Button("Add Faculty");
+        Button b5=new Button("Student");
+        Button b6=new Button("Faculty");
         
         GridPane v=new GridPane();
         b1.setMaxWidth(Double.MAX_VALUE);
@@ -124,19 +124,28 @@ public class AddStudent extends Application{
 		gp.setVgap(10);
 		gp.setPadding(new Insets(10,10,10,10));
 		
-		Button ok=new Button("Add Student");
+		Button ok = new Button("Save Changes");
+		Button rem=new Button("Delete Student");
+		Button go=new Button("Search");
+		GridPane gp1=new GridPane();
+		gp1.add(go, 1, 1);
+		gp1.add(ok, 2, 1);
+		gp1.add(rem, 3, 1);
+		gp1.setHgap(10);
+		gp1.setVgap(10);
+		
 		BorderPane bp=new BorderPane();
 //		bp.setTop(top);
 //		bp.setAlignment(top,Pos.CENTER);
 		bp.setCenter(gp);
 		bp.setAlignment(gp, Pos.CENTER);
-		bp.setBottom(ok);
-		bp.setAlignment(ok,Pos.CENTER);
+		bp.setBottom(gp1);
+		bp.setAlignment(gp1,Pos.CENTER);
 		return(bp);
 	}
 	
 	private static BorderPane compiler(BorderPane top,GridPane left,BorderPane mid) {
-		Text tops=new Text("Add Student");
+		Text tops=new Text("STUDENT");
 		tops.setStyle("-fx-font-weight:bold;-fx-font-size:150%");
 		BorderPane b1=new BorderPane();
 		BorderPane bp=new BorderPane();
