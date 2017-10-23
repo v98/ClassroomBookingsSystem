@@ -21,6 +21,9 @@ import java.time.LocalDate;
 
 public class RoomAvailability {
 
+
+
+
     private static HBox addDate() {
         DatePicker dp=new DatePicker();
         dp.setValue(LocalDate.now());
@@ -133,7 +136,7 @@ public class RoomAvailability {
         return(bp);
     }
 
-    public static void main(String arp[]) {
-        launch(arp);
-    }
+//    public static void main(String arp[]) {
+//        launch(arp);
+//    }
 }
