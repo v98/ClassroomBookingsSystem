@@ -20,7 +20,7 @@ public class AddFaculty extends Application {
 		Scene sc = new Scene(compiler(addTop(), addGPane(), addMid()));
 		Stage s = new Stage();
 		s.setScene(sc);
-		s.setTitle("Add Faculty");
+		s.setTitle("Edit Faculty");
 		s.show();
 	}
 
