@@ -20,7 +20,7 @@ public class LoginPage extends Application {
         Text uname = new Text("Username");
         Text pass = new Text("Password");
 
-        Button login = new Button("Login");
+        Button login = new Button("Sign In!");
         TextField user = new TextField();
         PasswordField psswd = new PasswordField();
 
@@ -96,4 +96,7 @@ public class LoginPage extends Application {
         window.show();
     }
 
+    public static void main(String ar[]) {
+        launch(ar);
+    }
 }
