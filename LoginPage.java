@@ -1,101 +1,154 @@
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.Scene;
+import javafx.scene.shape.HLineTo;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.PasswordField;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-//this is basic layout I'm still working on making it look presentable
-
-public class LoginPage extends Application {
-    static Stage window;
-    static Scene main;
+public class EditCourse extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        window=primaryStage;
-        Text uname = new Text("Username");
-        Text pass = new Text("Password");
-
-        Button login = new Button("Sign In!");
-        TextField user = new TextField();
-        PasswordField psswd = new PasswordField();
-
-        login.setOnAction(e ->{
-            //authenticate and return value for t
-            int t=0;//0=student,1=faculty,2=admin
-            Scene lol=HomeScreen.getScene(t,window,main);
-            window.setScene(lol);
-            //if yes displaynextpage
-
-        });
-
-        GridPane in=new GridPane();
-        GridPane g1 = new GridPane();
-        g1.setHgap(10);
-        g1.setVgap(10);
-        g1.setPadding(new Insets(0, 10, 0, 10));
-
-        g1.add(uname,1,5);
-        g1.add(user,2,5);
-        g1.add(pass,1,6);
-        g1.add(psswd,2,6);
-        g1.add(login,2,7);
-        in.add(g1,1,1);
-
-        Text name = new Text("Name");
-        Text email = new Text("Email");
-        Text id=new Text("ID");
-        Text ps=new Text("Password");
-        Text cps=new Text("Confirm Password");
-
-        TextField nam = new TextField();
-        TextField eml = new TextField();
-        TextField idn=new TextField();
-        PasswordField pswd=new PasswordField();
-        PasswordField cpswd=new PasswordField();
-
-        Button sup = new Button("Sign Up!");
-        sup.setOnAction(e ->{
-            boolean val=ConfirmBox.display("Classroom Booking System","Are you sure you want to submit?");
-            if(val==true){
-                AlertBox.display("Classroom Booking System","Thank you for signing up!\nPlease proceed to Sign In.");
-            }
-            //update database
-            //show information/alert box -"please login"
-            //reload page
-        });
-
-        GridPane g2 = new GridPane();
-        g2.setHgap(10);
-        g2.setVgap(10);
-        g2.setPadding(new Insets(0, 10, 0, 50));
-
-        g2.add(name,1,1);
-        g2.add(nam,2,1);
-        g2.add(id,1,2);
-        g2.add(idn,2,2);
-        g2.add(email,1,3);
-        g2.add(eml,2,3);
-        g2.add(ps,1,4);
-        g2.add(pswd,2,4);
-        g2.add(cps,1,5);
-        g2.add(cpswd,2,5);
-        g2.add(sup,2,6);
-
-        in.setPadding(new Insets(0, 0, 10, 0));
-        in.add(g2,2,1);
-        main = new Scene(in);
-
-
-        window.setTitle("Classroom Booking System");
-        window.setScene(main);
-        window.show();
+    public void start(Stage arg0) {
+        Scene sc=new Scene(compiler(addMid()));
+        Stage s=new Stage();
+        s.setScene(sc);
+        s.setTitle("Edit Courses");
+        s.show();
     }
 
+
+
+
+    private static GridPane addMid() {
+        Label id = new Label("Course ID");
+        Label name = new Label("Course Name");
+        Label type=new Label("Type");
+        Label instructor=new Label("Instructor");
+        Label credits=new Label("Credits");
+        Label prcon=new Label("Preconditions");
+        Label pocon=new Label("PostConditions");
+
+
+        TextField Id = new TextField();
+        TextField nam = new TextField();
+        TextField typ=new TextField();
+        TextField ins=new TextField();
+        TextField cre=new TextField();
+
+        TextArea t1= new TextArea();
+        t1.setPrefHeight(150);
+        t1.setText("Details will be displayed here");
+        t1.setPrefWidth(300);
+
+        TextArea t2= new TextArea();
+        t2.setPrefHeight(150);
+        t2.setText("Details will be displayed here");
+        t2.setPrefWidth(300);
+
+        GridPane tmp1 = new GridPane();
+        tmp1.add(id, 1, 1);
+        tmp1.add(Id, 2, 1);
+        tmp1.setHgap(10);
+        GridPane tmp2 = new GridPane();
+        tmp2.add(name, 1, 1);
+        tmp2.add(nam, 2, 1);
+        tmp2.setHgap(10);
+
+        GridPane tmp3 = new GridPane();
+        tmp3.add(type, 1, 1);
+        tmp3.add(typ, 2, 1);
+        tmp3.setHgap(10);
+
+        GridPane tmp4 = new GridPane();
+        tmp4.add(credits, 1, 1);
+        tmp4.add(cre, 2, 1);
+        tmp4.setHgap(10);
+
+        GridPane tmp5 = new GridPane();
+        tmp5.add(instructor, 1, 1);
+        tmp5.add(ins, 2, 1);
+        tmp5.setHgap(10);
+
+        GridPane tmp6 = new GridPane();
+        tmp6.add(prcon, 1, 1);
+        tmp6.add(t1, 1, 2);
+        tmp6.setVgap(10);
+
+        GridPane tmp7 = new GridPane();
+        tmp7.add(pocon, 1, 1);
+        tmp7.add(t2, 1, 2);
+        tmp7.setVgap(10);
+
+        //Label sel = new Label("Select Course");
+        //Label edt = new Label("Edit Details:");
+//        ListView<String> list = new ListView<String>();
+//        ObservableList<String> items = FXCollections.observableArrayList("Course 1", "Course 2", "Course 3",
+//                "Course 4");
+//        list.setItems(items);
+//        list.setPrefWidth(100);
+//        list.setPrefHeight(70);
+        //ineTo hl=new HLineTo(100);
+
+        GridPane gpu = new GridPane();
+        gpu.add(tmp1, 1, 1);
+        gpu.add(tmp2, 2, 1);
+        //gp.add(sel, 1, 2);
+        //gpu.add(edt, 1, 2);
+        //gp.add(list, 1, 3);
+        //gp.add(t2, 2, 3);
+        Button disp=new Button("Display Course");
+        gpu.add(disp, 3, 1);
+        gpu.add(tmp3,1,3);
+        gpu.add(tmp4,2,3);
+        gpu.add(tmp5,3,3);
+        gpu.setHgap(10);
+        gpu.setVgap(10);
+
+        GridPane gpl=new GridPane();
+        gpl.add(tmp6,1,1);
+        gpl.add(tmp7,2,1);
+        gpl.setHgap(40);
+        gpl.setVgap(10);
+        gpl.setAlignment(Pos.CENTER);
+        GridPane gp=new GridPane();
+        gp.add(gpu,1,1);
+        gp.add(gpl,1,2);
+
+        gp.setVgap(10);
+        gp.setAlignment(Pos.CENTER);
+        return(gp);
+    }
+    private static BorderPane compiler(GridPane mid) {
+        BorderPane bp=new BorderPane();
+        Text head=new Text("EDIT COURSES");
+        head.setStyle("-fx-font-weight:bold;-fx-font-size:125%;");
+        bp.setTop(head);
+        bp.setAlignment(head, Pos.TOP_CENTER);
+        bp.setCenter(mid);
+        bp.setAlignment(mid,Pos.CENTER);
+        //bp.setLeft(left);
+        //bp.setAlignment(left,Pos.CENTER);
+        Button fin=new Button("Commit Changes");
+        bp.setBottom(fin);
+        bp.setAlignment(fin,Pos.CENTER);
+        bp.setPadding(new Insets(30,10,30,10));
+        BorderPane bp1=new BorderPane();
+        //bp1.setTop(top);
+        bp1.setAlignment(bp1,Pos.CENTER);
+        bp1.setCenter(bp);
+        bp1.setAlignment(bp,Pos.CENTER);
+        bp1.setPadding(new Insets(10,10,10,10));
+        return(bp1);
+    }
     public static void main(String ar[]) {
         launch(ar);
     }
