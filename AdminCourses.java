@@ -56,6 +56,9 @@ public class AdminCourses {
         bp.setCenter(gp);
         bp.setAlignment(gp,Pos.CENTER);
         bp.setPadding(new Insets(0,10,10,0));
+        edit.setOnAction(e->{
+            EditCourse.compiler();
+        });
         return bp;
     }
 
