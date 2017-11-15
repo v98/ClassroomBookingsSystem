@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.application.Application;
@@ -15,7 +19,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 public class AddFaculty {
-
+    static TextField nam,emal,id;
+    static TextArea ta;
+    static Button ok,rem,go;
     private static BorderPane addMid() {
         Label nm = new Label("Name");
         Label eml = new Label("Email");
@@ -27,10 +33,13 @@ public class AddFaculty {
         idd.setMaxWidth(100);
         regcrs.setMaxWidth(100);
 
-        TextField nam = new TextField();
-        TextField emal = new TextField();
-        TextField id = new TextField();
-        TextArea ta = new TextArea();
+        nam = new TextField();
+        emal = new TextField();
+        id = new TextField();
+        ta = new TextArea();
+        
+        emal.setDisable(true);
+        ta.setDisable(true);
 
         nam.setMaxWidth(250);
         emal.setMaxWidth(250);
@@ -50,9 +59,13 @@ public class AddFaculty {
         gp.setVgap(10);
         gp.setPadding(new Insets(10, 10, 10, 10));
 
-        Button ok = new Button("Save Changes");
-        Button rem=new Button("Delete Faculty");
-        Button go=new Button("Search");
+        ok = new Button("Save Changes");
+        rem=new Button("Delete Faculty");
+        go=new Button("Search");
+        
+        ok.setDisable(true);
+        rem.setDisable(true);
+        
         GridPane gp1=new GridPane();
         gp1.add(go, 1, 1);
         gp1.add(ok, 2, 1);
@@ -67,7 +80,89 @@ public class AddFaculty {
         bp.setAlignment(gp, Pos.CENTER);
         bp.setBottom(gp1);
         bp.setAlignment(gp1, Pos.CENTER);
+        
+        go.setOnAction(e->{
+            
+            if(nam.getText().isEmpty()||id.getText().isEmpty()){
+                AlertBox.display("Classroom Booking System", "Empty fields!");
+            }
+            else{
+                String sname=nam.getText();
+                String sid=id.getText();
+                try{
+                    Class.forName("AddFaculty");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root","vrinda@16186");
+                    Statement stmnt = con.createStatement();
+                    ResultSet rs = stmnt.executeQuery("select * from user where id='" + sid +"'&& name='"+sname+"' && type="+1+";");
+                    rs.next();
+                    if(!rs.isBeforeFirst()){
+                        
+                    id.setEditable(false);
+                    
+                    ok.setDisable(false);
+                    rem.setDisable(false);
+                    emal.setDisable(false);                        
+                    ta.setDisable(false);
+                    emal.setText(rs.getString(3));
+                    ta.setText(rs.getString(8));
+                    stmnt.close();
+                    con.close();
+                        
+                    }
+                    else{
+                        stmnt.close();
+                        con.close();
+                    }
+                  
+                }
+                catch(Exception t){
+                    t.printStackTrace();
+                }
+            }
+        });
+        
+        ok.setOnAction(e->{
+            try{
+                Class.forName("AddFaculty");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root","vrinda@16186");
+                Statement stmnt = con.createStatement();
+                
+                stmnt.executeUpdate("update user set name='"+nam.getText()+"',email='" + emal.getText()+"',courses='" + ta.getText()+ "'where id='" + id.getText() + "';");
+                //ok.setDisable(true);
+                clear();
+            }
+            catch(Exception t){
+                t.printStackTrace();
+            }
+        });
+        
+        rem.setOnAction(e->{
+            try{
+                Class.forName("AddFaculty");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root","vrinda@16186");
+                Statement stmnt = con.createStatement();
+                
+                stmnt.executeUpdate("delete from user where id='"+id.getText()+"';");
+                
+                clear();
+            }
+            catch(Exception t){
+                t.printStackTrace();
+            }
+            
+        });
         return (bp);
+    }
+    public static void clear(){
+        System.out.println(nam==null);
+        nam.setText(null);
+        emal.setText(null);
+        id.setText(null);
+        ta.setText(null);
+        ok.setDisable(true);
+        rem.setDisable(true);
+        emal.setDisable(true);
+        ta.setDisable(true);
     }
 
     public static BorderPane compiler() {
