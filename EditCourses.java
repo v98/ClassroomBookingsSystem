@@ -22,7 +22,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-public class EditCourse {
+public class EditCourses {
 	// @Override
 	// public void start(Stage arg0) {
 	//
@@ -111,8 +111,8 @@ public class EditCourse {
 		// gpu.add(edt, 1, 2);
 		// gp.add(list, 1, 3);
 		// gp.add(t2, 2, 3);
-		Button disp = new Button("Display Course");
-		gpu.add(disp, 3, 1);
+		//Button disp = new Button("Display Course");
+		//gpu.add(disp, 3, 1);
 		gpu.add(tmp3, 1, 3);
 		gpu.add(tmp4, 2, 3);
 		gpu.add(tmp5, 3, 3);
@@ -181,7 +181,7 @@ public class EditCourse {
 			try {
 				Class.forName("AdminCourses");
 				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
-						"ashutosh");
+						"vrinda@16186");
 				Statement stmt = con.createStatement();
 				String scid = Id.getText();
 				String sins = ins.getText();
