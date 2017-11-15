@@ -11,21 +11,24 @@ import javafx.scene.control.Button;
 public class HomeScreen extends Application {
     static Stage window;
     static Scene signin,home;
+    static String username;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         window=primaryStage;
-        Scene sc=new Scene(addBPane(addVBox(0,window),addTop(),addMain()));
+        Scene sc=new Scene(addBPane(addVBox(0,window,"Username"),addTop("Username"),addMain()));
         window.setScene(sc);
         window.show();
     }
-    public static Scene getScene(int t,Stage s,Scene back){
+    public static Scene getScene(int t,Stage s,Scene back,String user){
         signin=back;
         window=s;
-        home=new Scene(addBPane(addVBox(t,s),addTop(),addMain()),600,300);
+        username=user;
+        System.out.println(user);
+        home=new Scene(addBPane(addVBox(t,s,username),addTop(user),addMain()),600,300);
         return home;
     }
-    private static VBox addVBox(int t,Stage s) {
+    private static VBox addVBox(int t,Stage s,String username) {
         //Text t1=new Text("Vrinda Mittal");
         VBox v=new VBox();
         if (t==0){
@@ -43,30 +46,30 @@ public class HomeScreen extends Application {
             }
 
             panel[0].setOnAction(e ->{
-                BorderPane bp=ViewTimetable.compiler();
-                Scene sc=new Scene(addBPane(addVBox(0,s),addTop(),bp),800,250);
+                BorderPane bp=Timetable.compiler();
+                Scene sc=new Scene(addBPane(addVBox(0,s,username),addTop(username),bp),800,250);
                 s.setScene(sc);
             });
 
             panel[1].setOnAction(e ->{
                 BorderPane bp=SearchCourses.compiler();
-                Scene sc=new Scene(addBPane(addVBox(0,s),addTop(),bp),800,250);
+                Scene sc=new Scene(addBPane(addVBox(0,s,username),addTop(username),bp),800,250);
                 s.setScene(sc);
             });
 
 
             panel[2].setOnAction(e ->{
                 BorderPane bp=RoomAvailability.compiler();
-                Scene sc=new Scene(addBPane(addVBox(0,s),addTop(),bp),500,300);
+                Scene sc=new Scene(addBPane(addVBox(0,s,username),addTop(username),bp),500,300);
                 s.setScene(sc);
             });
             panel[3].setOnAction(e ->{
                 BorderPane bp=MyRequests.compiler();
-                s.setScene(new Scene(addBPane(addVBox(0,s),addTop(),bp),500,300));
+                s.setScene(new Scene(addBPane(addVBox(0,s,username),addTop(username),bp),500,300));
             });
             panel[4].setOnAction(e ->{
                 BorderPane bp=Profile.addCenter();
-                s.setScene(new Scene(addBPane(addVBox(0,s),addTop(),bp),500,300));
+                s.setScene(new Scene(addBPane(addVBox(0,s,username),addTop(username),bp),500,300));
             });
         }
         else if(t==1) {
@@ -81,20 +84,20 @@ public class HomeScreen extends Application {
                 v.setAlignment(Pos.CENTER);
             }
             panel[0].setOnAction(e ->{
-                BorderPane bp=ViewTimetable.compiler();
-                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),800,250);
+                BorderPane bp=Timetable.compiler();
+                Scene sc=new Scene(addBPane(addVBox(1,s,username),addTop(username),bp),800,250);
                 s.setScene(sc);
             });
 
             panel[1].setOnAction(e ->{
                 BorderPane bp=RoomAvailability.compiler();
-                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),500,300);
+                Scene sc=new Scene(addBPane(addVBox(1,s,username),addTop(username),bp),500,300);
                 s.setScene(sc);
             });
 
             panel[2].setOnAction(e ->{
                 BorderPane bp=Profile.addCenter2();
-                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),500,300);
+                Scene sc=new Scene(addBPane(addVBox(1,s,username),addTop(username),bp),500,300);
                 s.setScene(sc);
             });
 
@@ -117,33 +120,33 @@ public class HomeScreen extends Application {
             }
 
             panel[0].setOnAction(e ->{
-                BorderPane bp=ViewTimetable.compiler2();
-                Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),800,250);
+                BorderPane bp=Timetable.compiler2();
+                Scene sc=new Scene(addBPane(addVBox(2,s,username),addTop(username),bp),800,250);
                 s.setScene(sc);
             });
 
             panel[1].setOnAction(e ->{
                 BorderPane bp=AdminCourses.compiler();
-                s.setScene(new Scene(addBPane(addVBox(2,s),addTop(),bp),500,500));
+                s.setScene(new Scene(addBPane(addVBox(2,s,username),addTop(username),bp),500,500));
             });
             panel[2].setOnAction(e ->{
                 BorderPane bp=AddStudent.compiler();
-                s.setScene(new Scene(addBPane(addVBox(2,s),addTop(),bp),500,500));
+                s.setScene(new Scene(addBPane(addVBox(2,s,username),addTop(username),bp),500,500));
             });
 
             panel[3].setOnAction(e ->{
                 BorderPane bp=AddFaculty.compiler();
-                s.setScene(new Scene(addBPane(addVBox(2,s),addTop(),bp),600,500));
+                s.setScene(new Scene(addBPane(addVBox(2,s,username),addTop(username),bp),600,500));
             });
             panel[4].setOnAction(e ->{
                 BorderPane bp=RoomAvailability.compiler();
-                Scene sc=new Scene(addBPane(addVBox(2,s),addTop(),bp),500,300);
+                Scene sc=new Scene(addBPane(addVBox(2,s,username),addTop(username),bp),500,300);
                 s.setScene(sc);
             });
 
             panel[5].setOnAction(e ->{
                 BorderPane bp=MyRequests.compiler2();
-                Scene sc=new Scene(addBPane(addVBox(2,s),addTop(),bp),500,300);
+                Scene sc=new Scene(addBPane(addVBox(2,s,username),addTop(username),bp),500,300);
                 s.setScene(sc);
             });
 
@@ -151,10 +154,10 @@ public class HomeScreen extends Application {
 
         return v;
     }
-    private static BorderPane addTop(){
+    private static BorderPane addTop(String s){
         BorderPane bp=new BorderPane();
         Button lo=new Button("Log Out");
-        Button un=new Button("Username");
+        Button un=new Button(s);
         lo.setOnAction(e -> window.setScene(signin));
         un.setOnAction(e ->window.setScene(home));
         un.setMaxWidth(Double.MAX_VALUE);
