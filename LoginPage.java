@@ -190,10 +190,13 @@ public class LoginPage extends Application {
 		login.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
+                                String s=user.getText();
 				if (!(user.getText() == null || psswd.getText() == null)) {
 					int t = validate();
 					if (t == 1 || t == 2 || t == 0) {
-						Scene lol = HomeScreen.getScene(t, window, main);
+                                            
+                                            System.out.println(s.isEmpty());
+						Scene lol = HomeScreen.getScene(t, window, main,s);
 						window.setScene(lol);
 					}
 				} else {
@@ -212,8 +215,7 @@ public class LoginPage extends Application {
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
 					"vrinda@16186");
 			Statement stmnt = con.createStatement();
-			ResultSet rs = stmnt
-					.executeQuery("select * from user where name='" + n1 + "' and password = '" + n2 + "';");
+			ResultSet rs = stmnt.executeQuery("select * from user where id='" + n1 + "' and password = '" + n2 + "';");
 			if (!rs.isBeforeFirst()) {
 				AlertBox.display("Classroom Booking System",
 						"Please check username or password.\nIf you haven't yet signed up, sign up now.");
