@@ -259,8 +259,26 @@ public class LoginPage extends Application {
                                     stmt.executeUpdate("insert into user(id,name,email,password,type,branch,year) values('" + id + "','" + name + "','"
 						+ email + "','" + n2 + "','" + c + "','"+br.getValue()+"',"+yr.getValue()+");");
 				
-                                    stmnt.close();
+                                   
+                                   stmt.close();
+                                   Statement stm=con.createStatement();
+                                    ResultSet rs2=stm.executeQuery("select cid from courses where year="+yr.getValue()+" && branch='"+br.getValue()+"';");
+                                    //int i=1;
+                                    String s=new String();
+                                    //rs2.next();
+                                    while(rs2.next()){
+                                        
+                                        String temp=rs2.getString(1);
+                                        s=s.concat(temp+",");
+                                        
+                                    }
+                                    
+                                    stm.close();
+                                    Statement lol=con.createStatement();
+                                    lol.executeUpdate("update user set courses='"+s+"'where id='"+id+"';");
+                                    lol.close();
                                     con.close();
+                                    
                                     return (1);
                                     
                                 }
