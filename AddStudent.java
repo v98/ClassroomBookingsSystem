@@ -99,31 +99,40 @@ public class AddStudent {
         rem.setDisable(true);
         
         go.setOnAction(e->{
-            if(nam.getText()==""||emal.getText()==""){
+            if(nam.getText().isEmpty()||id.getText().isEmpty()){
                 AlertBox.display("Classroom Booking System", "Empty fields!");
             }
             else{
                 String sname=nam.getText();
                 String sid=id.getText();
                 try{
-                    Class.forName("LoginPage");
+                    Class.forName("AddStudent");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
 					"vrinda@16186");
 			Statement stmnt = con.createStatement();
 			ResultSet rs = stmnt.executeQuery("select * from user where id='" + sid +"' && name='"+sname+"' && type=0;");
                         rs.next();
-                        ok.setDisable(false);
-                        rem.setDisable(false);
-                        emal.setDisable(false);
-                        ta.setDisable(false);
-                        prog.setDisable(false);
-                        tpe.setDisable(false);
-                        ta.setDisable(false);
-                        emal.setText(rs.getString(3));
-                        prog.setValue("Btech");
-                        tpe.setValue(rs.getString(6));
-                        ta.setText(rs.getString(8));
-                        
+                        if(!rs.isBeforeFirst()){
+                            id.setEditable(false);
+                            ok.setDisable(false);
+                            rem.setDisable(false);
+                            emal.setDisable(false);
+                            ta.setDisable(false);
+                            prog.setDisable(false);
+                            tpe.setDisable(false);
+                            ta.setDisable(false);
+                            emal.setText(rs.getString(3));
+                            prog.setValue("Btech");
+                            tpe.setValue(rs.getString(6));
+                            ta.setText(rs.getString(8));
+                            stmnt.close();
+                            con.close();
+                        }
+                        else{
+                            stmnt.close();
+                            con.close();
+                        }
+                                 
                         
                         
                 }
@@ -135,7 +144,7 @@ public class AddStudent {
         
         ok.setOnAction(e->{
             try{
-                Class.forName("LoginPage");
+                Class.forName("AddStudent");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root","vrinda@16186");
                 Statement stmnt = con.createStatement();
                 
@@ -150,7 +159,7 @@ public class AddStudent {
         
         rem.setOnAction(e->{
             try{
-                Class.forName("LoginPage");
+                Class.forName("AddStudent");
                 Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root","vrinda@16186");
                 Statement stmnt = con.createStatement();
                 
