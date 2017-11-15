@@ -60,13 +60,13 @@ public class AdminCourses {
 		Button rem = new Button("Remove Course");
 		edit = new Button("Edit Course");
 		Button view = new Button("View Timetable");
-		Button ref = new Button("Refresh");
+		//Button ref = new Button("Refresh");
 
 		GridPane tmp = new GridPane();
 		tmp.add(rem, 1, 1);
 		tmp.add(edit, 2, 1);
 		tmp.add(view, 3, 1);
-		tmp.add(ref, 2, 2);
+		//tmp.add(ref, 2, 2);
 		tmp.setHgap(10);
 		tmp.setVgap(10);
 		gp.add(tmp, 2, 3);
@@ -75,9 +75,9 @@ public class AdminCourses {
 		bp.setAlignment(gp, Pos.CENTER);
 		bp.setPadding(new Insets(0, 10, 10, 0));
 
-		ref.setOnAction(e -> {
-			connect();
-		});
+//		ref.setOnAction(e -> {
+//			connect();
+//		});
 		list.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
@@ -97,7 +97,7 @@ public class AdminCourses {
 			}
 		});
 		edit.setOnAction(e -> {
-			EditCourse.compiler();
+			EditCourses.compiler();
 			connect();
 			// Edit();
 		});
@@ -117,7 +117,7 @@ public class AdminCourses {
 		try {
 			Class.forName("AdminCourses");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
-					"ashutosh");
+					"vrinda@16186");
 			Statement stmt = con.createStatement();
 			Statement stmt1 = con.createStatement();
 			ResultSet rs = stmt.executeQuery("select name from courses;");
@@ -178,7 +178,7 @@ public class AdminCourses {
 		try {
 			Class.forName("AdminCourses");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
-					"ashutosh");
+					"vrinda@16186");
 			// t2 = new TextArea();
 			// list=new ListView<String>();
 			Statement stmt = con.createStatement();
@@ -194,28 +194,28 @@ public class AdminCourses {
 		}
 	}
 
-	private static void Edit() {
-		t2.setEditable(true);
-		edit.setText("Save Changes");
-		// t2 = new TextArea();
-		// list=new ListView<String>();
-		boolean val = ConfirmBox.display("Classroom Booking System", "Are you sure you want to edit this course?");
-		if (val == true) {
-			try {
-				Class.forName("AdminCourses");
-				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
-						"ashutosh");
-				Statement stmt = con.createStatement();
-				String s = list.getSelectionModel().getSelectedItem();
-				stmt.executeUpdate("delete from courses where name='" + s + "';");
-				connect();
-				list.setItems(items);
-				t2.setText("");
-				stmt.close();
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}
-	}
+//	private static void Edit() {
+//		t2.setEditable(true);
+//		edit.setText("Save Changes");
+//		// t2 = new TextArea();
+//		// list=new ListView<String>();
+//		boolean val = ConfirmBox.display("Classroom Booking System", "Are you sure you want to edit this course?");
+//		if (val == true) {
+//			try {
+//				Class.forName("AdminCourses");
+//				Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
+//						"vrinda@16186");
+//				Statement stmt = con.createStatement();
+//				String s = list.getSelectionModel().getSelectedItem();
+//				stmt.executeUpdate("delete from courses where name='" + s + "';");
+//				connect();
+//				list.setItems(items);
+//				t2.setText("");
+//				stmt.close();
+//				con.close();
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+//		}
+//	}
 }
