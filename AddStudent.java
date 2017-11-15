@@ -1,3 +1,7 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.application.Application;
@@ -12,7 +16,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 
 public class AddStudent {
-
+    static TextField emal,nam,id;
+    static TextArea ta;
+    static Button go,ok,rem;
+    static ComboBox<String> prog,tpe;
     private static BorderPane addMid() {
         Label nm=new Label("Name");
         Label eml=new Label("Email");
@@ -29,20 +36,25 @@ public class AddStudent {
 
         regcrs.setMaxWidth(50);
 
-        TextField nam=new TextField();
-        TextField emal=new TextField();
-        TextField id=new TextField();
-        TextArea ta=new TextArea();
+        nam=new TextField();
+        emal=new TextField();
+        id=new TextField();
+        ta=new TextArea();
+        
+        emal.setDisable(true);
+        ta.setDisable(true);
 
         nam.setMaxWidth(250);
         emal.setMaxWidth(250);
         id.setMaxWidth(250);
         ta.setMaxWidth(250);
 
-        ComboBox<String> prog=new ComboBox<String>();
+        prog=new ComboBox<String>();
         prog.getItems().addAll("BTech","MTech","PhD");
-        ComboBox<String> tpe=new ComboBox<String>();
+        prog.setDisable(true);
+        tpe=new ComboBox<String>();
         tpe.getItems().addAll("CSE","CSAM","ECE");
+        tpe.setDisable(true);
 //		switch(prog.getSelectionModel().getSelectedItem().charAt(0)) {
 //		case 'B':
 //			tpe.getItems().addAll("CSE","CSAM","ECE");
@@ -79,9 +91,83 @@ public class AddStudent {
 
 
 
-        Button ok = new Button("Save Changes");
-        Button rem=new Button("Delete Student");
-        Button go=new Button("Search");
+        ok = new Button("Save Changes");
+        rem=new Button("Delete Student");
+        go=new Button("Search");
+        
+        ok.setDisable(true);
+        rem.setDisable(true);
+        
+        go.setOnAction(e->{
+            if(nam.getText()==""||emal.getText()==""){
+                AlertBox.display("Classroom Booking System", "Empty fields!");
+            }
+            else{
+                String sname=nam.getText();
+                String sid=id.getText();
+                try{
+                    Class.forName("LoginPage");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
+					"vrinda@16186");
+			Statement stmnt = con.createStatement();
+			ResultSet rs = stmnt.executeQuery("select * from user where id='" + sid +"' && name='"+sname+"' && type=0;");
+                        rs.next();
+                        ok.setDisable(false);
+                        rem.setDisable(false);
+                        emal.setDisable(false);
+                        ta.setDisable(false);
+                        prog.setDisable(false);
+                        tpe.setDisable(false);
+                        ta.setDisable(false);
+                        emal.setText(rs.getString(3));
+                        prog.setValue("Btech");
+                        tpe.setValue(rs.getString(6));
+                        ta.setText(rs.getString(8));
+                        
+                        
+                        
+                }
+                catch(Exception t){
+                    t.printStackTrace();
+                }
+            }
+        });
+        
+        ok.setOnAction(e->{
+            try{
+                Class.forName("LoginPage");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root","vrinda@16186");
+                Statement stmnt = con.createStatement();
+                
+                stmnt.executeUpdate("update user set email='" + emal.getText()+ "',branch='" +tpe.getValue()+ "',courses='" + ta.getText()+ "'where id='" + id.getText() + "';");
+                //ok.setDisable(true);
+                clear();
+            }
+            catch(Exception t){
+                t.printStackTrace();
+            }
+        });
+        
+        rem.setOnAction(e->{
+            try{
+                Class.forName("LoginPage");
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root","vrinda@16186");
+                Statement stmnt = con.createStatement();
+                
+                stmnt.executeUpdate("delete from user where id='"+id.getText()+"';");
+                
+                clear();
+            }
+            catch(Exception t){
+                t.printStackTrace();
+            }
+            
+        });
+        
+        
+    
+        
+        
         HBox last=new HBox(10);
         last.getChildren().addAll(go,ok,rem);
 
@@ -96,6 +182,25 @@ public class AddStudent {
 //        bp.setAlignment(last,Pos.CENTER);
         bp.setPadding(new Insets(10,10,10,10));
         return(bp);
+        
+        
+        
+ 
+    }
+    
+    public static void clear(){
+        nam.setText(null);
+        emal.setText(null);
+        id.setText(null);
+        prog.setValue(null);
+        tpe.setValue(null);
+        ta.setText(null);
+        ok.setDisable(true);
+        rem.setDisable(true);
+        emal.setDisable(true);
+        prog.setDisable(true);
+        tpe.setDisable(true);
+        ta.setDisable(true);
     }
 
     public static BorderPane compiler() {
