@@ -18,6 +18,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import javafx.scene.control.ComboBox;
 
 public class LoginPage extends Application {
 	static Stage window;
@@ -26,28 +27,74 @@ public class LoginPage extends Application {
 	static PasswordField psswd, pswd, cpswd;
 	static String username,Id,emailid;
 	static RadioButton stu, fac;
-
+        static ComboBox<Integer> yr;
+        static ComboBox<String> br;
+        static Text branch,year;
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		window = primaryStage;
 		Text uname = new Text("Username");
 		Text pass = new Text("Password");
 		Text typ = new Text("Signup as :");
-
+                year=new Text("Year");
+                branch=new Text("Branch");
+                year.setVisible(false);
+                branch.setVisible(false);
+                
 		Button login = new Button("Sign In!");
 		user = new TextField();
 		psswd = new PasswordField();
 		stu = new RadioButton();
 		fac = new RadioButton();
-
+                yr=new ComboBox<Integer>();
+                br=new ComboBox<String>();
+                yr.getItems().addAll(1,2,3,4);
+                br.getItems().addAll("CSE","CSAM","ECE");
+                
+                yr.setVisible(false);
+                br.setVisible(false);
+                
 		HBox rdbuttons = new HBox(20);
 		final ToggleGroup group = new ToggleGroup();
 
 		stu.setText("Student");
 		fac.setText("Faculty");
-
+                
+                stu.setOnAction(e-> {
+                    if(stu.isSelected()){
+                        yr.setVisible(true);
+                        year.setVisible(true);
+                        br.setVisible(true);
+                        branch.setVisible(true);
+                    }
+                    else{
+                        yr.setVisible(false);
+                        year.setVisible(false);
+                        br.setVisible(false);
+                        branch.setVisible(false);
+                        
+                    }
+                });
+                
+                fac.setOnAction(e->{
+                    if(fac.isSelected()){
+                        yr.setVisible(false);
+                        year.setVisible(false);
+                        br.setVisible(false);
+                        branch.setVisible(false);
+                    }
+                    else{
+                        yr.setVisible(false);
+                        year.setVisible(false);
+                        br.setVisible(false);
+                        branch.setVisible(false);
+                    }
+                });
+                
+                
 		stu.setToggleGroup(group);
 		fac.setToggleGroup(group);
+                
 
 		GridPane in = new GridPane();
 		GridPane g1 = new GridPane();
@@ -95,7 +142,19 @@ public class LoginPage extends Application {
 		g2.add(cps, 1, 5);
 		g2.add(cpswd, 2, 5);
 		g2.add(typ, 1, 6);
-		g2.add(sup, 2, 7);
+		g2.add(sup, 2, 8);
+                HBox yEar=new HBox(5);
+                HBox bRanch=new HBox(5);
+                
+                yEar.getChildren().addAll(year,yr);
+                bRanch.getChildren().addAll(branch,br);
+                
+                HBox sdetails=new HBox(10);
+                sdetails.getChildren().addAll(yEar,bRanch);
+                
+                g2.add(sdetails, 2, 7);
+                
+                
 
 		rdbuttons.getChildren().add(stu);
 		rdbuttons.getChildren().add(fac);
@@ -112,6 +171,7 @@ public class LoginPage extends Application {
 		window.show();
 
 		sup.setOnAction(e -> {
+                        
 			boolean val = ConfirmBox.display("Classroom Booking System", "Are you sure you want to submit?");
 			if (val == true && checkData() == true) {
 				int a = update();// check and update database
@@ -150,7 +210,7 @@ public class LoginPage extends Application {
 		try {
 			Class.forName("LoginPage");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
-					"ashutosh");
+					"vrinda@16186");
 			Statement stmnt = con.createStatement();
 			ResultSet rs = stmnt
 					.executeQuery("select * from user where name='" + n1 + "' and password = '" + n2 + "';");
@@ -189,18 +249,30 @@ public class LoginPage extends Application {
 		try {
 			Class.forName("LoginPage");
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
-					"ashutosh");
+					"vrinda@16186");
 			Statement stmnt = con.createStatement();
 			ResultSet rs = stmnt.executeQuery("select * from user where id='" + id + "';");
 			c = (stu.isSelected() == true) ? 0 : 1;
 			if (!rs.isBeforeFirst()) {
 				Statement stmt = con.createStatement();
-				stmt.executeUpdate("insert into user(id,name,email,password,type) values('" + id + "','" + name + "','"
+                                if (stu.isSelected()){
+                                    stmt.executeUpdate("insert into user(id,name,email,password,type,branch,year) values('" + id + "','" + name + "','"
+						+ email + "','" + n2 + "','" + c + "','"+br.getValue()+"',"+yr.getValue()+");");
+				
+                                    stmnt.close();
+                                    con.close();
+                                    return (1);
+                                    
+                                }
+                                else{
+                                    stmt.executeUpdate("insert into user(id,name,email,password,type) values('" + id + "','" + name + "','"
 						+ email + "','" + n2 + "','" + c + "');");
 				
 				stmnt.close();
 				con.close();
 				return (1);
+                                }
+				
 			} else {
 				stmnt.close();
 				con.close();
@@ -251,6 +323,20 @@ public class LoginPage extends Application {
 			AlertBox.display("Classroom Booking System", "Please select \"Signup As\"");
 			return(false);
 		}
+                if(stu.isSelected()==true){
+                    if(yr.getSelectionModel().getSelectedItem()== null){
+                        AlertBox.display("Classroom Booking System", "Please choose a year");
+                        return(false);
+                    }
+                    if(br.getSelectionModel().getSelectedItem()==null){
+                        AlertBox.display("Classroom Booking System", "Please choose a branch");
+                        return(false);
+                    }
+                    if(yr.getSelectionModel().getSelectedItem()== null && br.getSelectionModel().getSelectedItem()==null){
+                        AlertBox.display("ClassroomBookingSysytem","Missing Entries");
+                        return(false);
+                    }
+                }
 		return (true);
 	}
 
@@ -264,6 +350,14 @@ public class LoginPage extends Application {
 		psswd.setText("");
 		stu.setSelected(false);
 		fac.setSelected(false);
+                yr.setValue(null);
+                br.setValue(null);
+                br.setVisible(false);
+                yr.setVisible(false);
+                branch.setVisible(false);
+                year.setVisible(false);
+               
+                
 	}
 
 	public static void main(String ar[]) {
