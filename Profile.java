@@ -13,7 +13,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
 public class Profile  {
-
+    public static TextField t1,t2,t3;
 
     public static BorderPane addCenter(){
         BorderPane bp=new BorderPane();
@@ -27,9 +27,9 @@ public class Profile  {
         Text id=new Text("ID");
         Text email=new Text("Email ID");
 
-        TextField t1=new TextField();
-        TextField t2=new TextField();
-        TextField t3=new TextField();
+        t1=new TextField();
+        t2=new TextField();
+        t3=new TextField();
         t1.setEditable(false);
         t2.setEditable(false);
         t3.setEditable(false);
