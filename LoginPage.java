@@ -196,7 +196,7 @@ public class LoginPage extends Application {
 					if (t == 1 || t == 2 || t == 0) {
                                             
                                             System.out.println(s.isEmpty());
-						Scene lol = HomeScreen.getScene(t, window, main,s);
+						Scene lol = HomeScreen.getScene(t, window, main);
 						window.setScene(lol);
 					}
 				} else {
@@ -215,7 +215,7 @@ public class LoginPage extends Application {
 			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root",
 					"vrinda@16186");
 			Statement stmnt = con.createStatement();
-			ResultSet rs = stmnt.executeQuery("select * from user where id='" + n1 + "' and password = '" + n2 + "';");
+			ResultSet rs = stmnt.executeQuery("select * from user where email='" + n1 + "' and password = '" + n2 + "';");
 			if (!rs.isBeforeFirst()) {
 				AlertBox.display("Classroom Booking System",
 						"Please check username or password.\nIf you haven't yet signed up, sign up now.");
