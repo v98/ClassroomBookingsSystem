@@ -42,7 +42,7 @@ public class HomeScreen extends Application {
             }
 
             panel[0].setOnAction(e ->{
-                BorderPane bp=Timetable.compiler();
+                BorderPane bp=StudentTimetable.compiler();
                 Scene sc=new Scene(addBPane(addVBox(0,s),addTop(),bp),800,250);
                 s.setScene(sc);
             });
@@ -67,8 +67,8 @@ public class HomeScreen extends Application {
                 BorderPane bp=Profile.addCenter();
                 s.setScene(new Scene(addBPane(addVBox(0,s),addTop(),bp),500,300));
                 Profile.t1.setText(LoginPage.username);
-        	Profile.t2.setText(LoginPage.Id);
-        	Profile.t3.setText(LoginPage.emailid);
+        		Profile.t2.setText(LoginPage.Id);
+        		Profile.t3.setText(LoginPage.emailid);
             });
         }
         else if(t==1) {
@@ -83,7 +83,7 @@ public class HomeScreen extends Application {
                 v.setAlignment(Pos.CENTER);
             }
             panel[0].setOnAction(e ->{
-                BorderPane bp=Timetable.compiler();
+                BorderPane bp=StudentTimetable.compiler();             //FACULTY TT
                 Scene sc=new Scene(addBPane(addVBox(1,s),addTop(),bp),800,250);
                 s.setScene(sc);
             });
@@ -119,7 +119,7 @@ public class HomeScreen extends Application {
             }
 
             panel[0].setOnAction(e ->{
-                BorderPane bp=Timetable.compiler2();
+                BorderPane bp=ViewTimetable.compiler2();
                 Scene sc=new Scene(addBPane(addVBox(2,s),addTop(),bp),800,250);
                 s.setScene(sc);
             });
