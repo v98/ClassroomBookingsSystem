@@ -29,7 +29,7 @@ import javafx.util.Callback;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-public class ViewTimetable {
+public class Timetable {
 //	static List ls;
 	static TextField labs = new TextField();
 	static TextField tuts = new TextField();
@@ -74,8 +74,8 @@ public class ViewTimetable {
 		
 
 		try {
-			Class.forName("ViewTimetable");
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root", "ashutosh");
+			Class.forName("Timetable");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/project?useSSL=false", "root", "vrinda@16186");
 			Statement stmt = con.createStatement();
 			ResultSet rs1 = stmt.executeQuery("select distinct branch from courses;");
 			ArrayList<String> brnch = new ArrayList<String>();

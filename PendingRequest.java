@@ -15,7 +15,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 
-public class PendingRequests extends Application{
+public class PendingRequest extends Application{
     @Override
     public void start(Stage arg0) {
         Scene sc=new Scene(compiler(addTop(),addGPane(),addMid()));
@@ -74,7 +74,7 @@ public class PendingRequests extends Application{
         return(tb);
     }
     private static BorderPane compiler(BorderPane top,GridPane left,TableView mid) {
-        Text tp = new Text("Pending Requests");
+        Text tp = new Text("Room Bookings");
         tp.setStyle("-fx-font-weight:bold;-fx-font-size:150%");
         BorderPane bp=new BorderPane();
 
@@ -92,12 +92,12 @@ public class PendingRequests extends Application{
         bp1.setAlignment(bp, Pos.CENTER);
         bp1.setPadding(new Insets(10,10,10,10));
         GridPane tmp=new GridPane();
-        Button ok=new Button("Accept Request");
-        Button cancel=new Button("Reject Request");
-        tmp.add(ok, 1, 1);
-        tmp.setHgap(10);
-        tmp.add(cancel,2,1);
-        bp1.setBottom(tmp);
+//        Button ok=new Button("Accept Request");
+//        Button cancel=new Button("Reject Request");
+//        tmp.add(ok, 1, 1);
+//        tmp.setHgap(10);
+//        tmp.add(cancel,2,1);
+//        bp1.setBottom(tmp);
         bp1.setAlignment(tmp, Pos.CENTER);
 
         return(bp1);

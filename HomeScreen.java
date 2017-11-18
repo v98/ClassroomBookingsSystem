@@ -109,7 +109,7 @@ public class HomeScreen extends Application {
             panel[2]=new Button("Students");//edit or remove student
             panel[3]=new Button("Faculty");//edit  or remove faculty
             panel[4]=new Button("Room Availability");
-            panel[5]=new Button("Room Requests");
+            panel[5]=new Button("Room Bookings");
             //panel[6]=new Button("Profile");
             for(int i=0;i<6;i++){
                 panel[i].setMaxWidth(Double.MAX_VALUE);
@@ -119,7 +119,7 @@ public class HomeScreen extends Application {
             }
 
             panel[0].setOnAction(e ->{
-                BorderPane bp=ViewTimetable.compiler2();
+                BorderPane bp=Timetable.compiler2();
                 Scene sc=new Scene(addBPane(addVBox(2,s),addTop(),bp),800,250);
                 s.setScene(sc);
             });

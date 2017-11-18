@@ -116,19 +116,7 @@ public class RoomAvailability {
         return(gp);
     }
 
-    @SuppressWarnings("rawtypes")
-    private static TableView addTable() {
-        TableColumn room=new TableColumn("RoomID");
-        TableColumn cap=new TableColumn("Capacity");
-        TableColumn avbl=new TableColumn("Status");
-        TableView table=new TableView();
-        table.getColumns().addAll(room,cap,avbl);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        table.setEditable(false);
-        table.setMaxWidth(322);
-        table.setMaxHeight(322);
-        return(table);
-    }
+
 
     private static BorderPane addMid() {
         GridPane gp=new GridPane();
@@ -141,8 +129,8 @@ public class RoomAvailability {
         BorderPane bp=new BorderPane();
         bp.setTop(gp);
         bp.setAlignment(gp, Pos.CENTER);
-        bp.setCenter(addTable());
-        bp.setAlignment(addTable(),Pos.CENTER);
+//        bp.setCenter(addTable());
+//        bp.setAlignment(addTable(),Pos.CENTER);
         bp.setPadding(new Insets(0,10,15,10));
         return(bp);
     }
@@ -173,7 +161,7 @@ public class RoomAvailability {
         Button go=new Button("GO");
         
         go.setOnAction(e->{
-            //int type=LoginPage.type;
+            int type=LoginPage.type;
             sh=h1.getEditor().getText();
             if(sh.length()==1){
                 sh="0".concat(sh);
@@ -198,11 +186,21 @@ public class RoomAvailability {
             dt=dp.getValue();
             mydate=dt.toString();
             oblist=getObsList(sh,sm,eh,em,dt);
-            for(TableItem i:oblist){
-                System.out.println(i.getCapacity());
-            }
+//            for(TableItem i:oblist){
+//                System.out.println(i.getCapacity());
+//            }
             table.setItems(oblist);
-            if (true){
+            if (type==0){
+                //System.out.println("Hello World!");
+                table.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+                                TableItem titem=table.getSelectionModel().getSelectedItem();
+                                myrid=titem.getRoomid();
+                                myrcap=titem.getCapacity().toString();
+                                BookRoom2.compiler();
+			}
+		});
                 
             }
             else{
@@ -212,7 +210,7 @@ public class RoomAvailability {
                                 TableItem titem=table.getSelectionModel().getSelectedItem();
                                 myrid=titem.getRoomid();
                                 myrcap=titem.getCapacity().toString();
-                                
+                                BookRoom.compiler();
 			}
 		});
                 

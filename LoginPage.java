@@ -26,6 +26,7 @@ public class LoginPage extends Application {
 	static TextField user, nam, eml, idn;
 	static PasswordField psswd, pswd, cpswd;
 	static String username,Id,emailid;
+        static int type;
 	static RadioButton stu, fac;
         static ComboBox<Integer> yr;
         static ComboBox<String> br;
@@ -230,6 +231,7 @@ public class LoginPage extends Application {
 				username = rs.getString(2);
 				emailid=rs.getString(3);
 				Id=rs.getString(1);
+                                type=Integer.parseInt(rs.getString(5));
 				clear();
 				stmnt.close();
 				con.close();
